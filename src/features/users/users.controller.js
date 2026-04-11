@@ -16,8 +16,10 @@ exports.createUser = async (req, res) => {
         });
         await newUser.save();
         res.status(201).json(newUser);
+        console.log("Utilisateur créé avec succès"); // for testing
     } catch (err) {
         res.status(400).json({ error: err.message });
+        console.log(error.message); // for testing
     }
 }
 
@@ -49,9 +51,11 @@ exports.login = async (req, res) => {
         },
         token
     });
+    console.log("Utilisateur connecté avec succès"); // for testing
     } catch (err) {
         console.error("Erreur login:", err.message);
         res.status(500).json({ error: "Erreur interne du serveur." });
+        console.log(err.message); // for testing
     }
 };
 
@@ -60,9 +64,11 @@ exports.getMe = async (req, res) => {
         const user = await User.findById(req.userId, '-password -updatedAt')
         if (!user) return res.status(404).json({ error: 'Utilisateur non trouvé' });
         res.status(200).json(user);
+        console.log("Données utilisateur récupérées avec succès"); // for testing
     } catch (err) {
         console.error("Erreur:" , err.message);
         res.status(404).json({error: "Erreur interne"});
+        console.log(err.message); // for testing
     }
 }
 
