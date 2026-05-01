@@ -14,7 +14,30 @@ const userSchema = new mongoose.Schema({
     },
     password: { 
         type: String, 
-        required: true 
+        required: false 
+    },
+    authProvider: {
+        type: String,
+        enum: ['local', 'google', 'facebook'],
+        default: 'local'
+    },
+    googleId: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    googleProfile: {
+        name: String,
+        picture: String
+    },
+    facebookId: {
+        type: String,
+        unique: true,
+        sparse: true
+    },
+    facebookProfile: {
+        name: String,
+        picture: String
     },
     stats : {
         total_wins: {

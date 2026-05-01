@@ -2,6 +2,8 @@ const express = require('express');
 const userRoute = require('./features/users/users.route');
 const matchRoute = require('./features/matches/matches.route')
 const cors = require('cors');
+const session = require('express-session');
+const passport = require('./config/passport');
 
 require('dotenv').config();
 const path = require("path");
@@ -12,6 +14,22 @@ app.use(cors({
     origin: 'http://localhost:5173', // ton frontend en dev
     credentials: true
 }));
+
+// Configuration de la session
+app.use(session({
+    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    resave: false,
+    saveUninitialized: false,
+    cookie: { 
+        secure: process.env.NODE_ENV === 'production', 
+        httpOnly: true,
+        maxAge: 24 * 60 * 60 * 1000 // 24h
+    }
+}));
+
+// Initialisation de Passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/api/users', userRoute);
 app.use('/api/matches', matchRoute);
