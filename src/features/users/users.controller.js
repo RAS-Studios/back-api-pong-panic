@@ -1,7 +1,6 @@
 const User = require('./users.model');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-require('dotenv').config()
 
 const pepper = process.env.PEPPER;
 const jwtKey = process.env.JWT_SECRET;

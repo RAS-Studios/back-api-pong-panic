@@ -2,7 +2,6 @@ const passport = require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const User = require('../features/users/users.model');
-require('dotenv').config();
 
 // Stratégie Google
 passport.use(new GoogleStrategy({
