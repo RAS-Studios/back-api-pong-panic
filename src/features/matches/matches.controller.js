@@ -70,6 +70,9 @@ exports.createMatch = async (req, res) => {
             player2.stats.total_wins += 1;
         }
 
+        const oldRatingP1 = player1.stats.rating;
+        const oldRatingP2 = player2.stats.rating;
+
         player1.stats.rating = newEloP1;
         player2.stats.rating = newEloP2;
         
@@ -78,15 +81,13 @@ exports.createMatch = async (req, res) => {
         res.status(201).json({
             match: newMatch,
             ratingChanges: [
-                { username: player1.username, oldRating: player1.stats.rating, newRating: newEloP1, diff: newEloP1 - player1.stats.rating },
-                { username: player2.username, oldRating: player2.stats.rating, newRating: newEloP2, diff: newEloP2 - player2.stats.rating }
+                { username: player1.username, oldRating: oldRatingP1, newRating: newEloP1, diff: newEloP1 - oldRatingP1 },
+                { username: player2.username, oldRating: oldRatingP2, newRating: newEloP2, diff: newEloP2 - oldRatingP2 }
             ]
         });
     } catch (err) {
         res.status(400).json({ error: err.message });
     }
-
-
 };
 
 exports.getHistoryById = async (req, res) => {
