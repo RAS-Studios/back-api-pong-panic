@@ -10,13 +10,14 @@ const app = express();
 
 app.use(express.json());
 app.use(cors({
-    origin: 'http://localhost:5173', // ton frontend en dev
+    //origin: 'http://localhost:5173', // ton frontend en dev
+    origin: 'https://ras-studios.github.io',
     credentials: true
 }));
 
 // Configuration de la session
 app.use(session({
-    secret: process.env.SESSION_SECRET || 'your-secret-key',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { 
